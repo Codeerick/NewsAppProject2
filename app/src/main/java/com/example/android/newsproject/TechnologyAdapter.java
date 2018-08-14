@@ -1,7 +1,6 @@
-package com.example.android.newsappproject;
+package com.example.android.newsproject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,51 +11,45 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class TechnologyAdapter extends ArrayAdapter<Technology> {
 
    private static  final String DATE_SEPARATOR= "T";
+    private TextView title;
+    private TextView section;
+    private TextView author;
+    private TextView dateView;
 
    public TechnologyAdapter(Activity context, ArrayList<Technology> technologies){
        super(context, 0,technologies);
    }
-
-   //class to hold the the Arraylist objects
-    static  class TechnologyViewHolder{
-       private TextView title;
-       private TextView section;
-       private TextView author;
-       private TextView date;
-   }
-
    @Override
     // checks if the objects going too be inflated
     public View getView (int position, View convertView, ViewGroup parent) {
+
+
+       View listItemView = convertView;
+
+
+       if (listItemView == null) {
+           listItemView = LayoutInflater.from(getContext()).inflate(R.layout.technology_list, parent, false);
+       }
        Technology currentTechnology = getItem(position);
 
-       TechnologyViewHolder holder;
+       title = (TextView) listItemView.findViewById(R.id.title);
+       section = (TextView) listItemView.findViewById(R.id.name_of_section);
+       author = (TextView) listItemView.findViewById(R.id.name_of_author);
+       dateView = (TextView) listItemView.findViewById(R.id.date);
 
-       if (convertView == null) {
-           convertView = LayoutInflater.from(getContext()).inflate(R.layout.technology_list, parent, false);
-           holder = new TechnologyViewHolder();
-           //finds title, section,author,date,TextViews.
-           holder.title = (TextView) convertView.findViewById(R.id.title);
-           holder.section = (TextView) convertView.findViewById(R.id.name_of_section);
-           holder.author = (TextView) convertView.findViewById(R.id.name_of_author);
-           holder.date = (TextView) convertView.findViewById(R.id.date);
-       } else {
-           holder = (TechnologyViewHolder) convertView.getTag();
-       }
 
        String sectionText = currentTechnology.getSection();
 
        String authorText = currentTechnology.getAuthor();
        if (authorText == null) {
-           holder.author.setVisibility(View.GONE);
+           author.setVisibility(View.GONE);
        } else {
-           holder.author.setText(authorText);
+          author.setText(authorText);
        }
        String originalDate = currentTechnology.getDate();
        String date = null;
@@ -76,9 +69,9 @@ public class TechnologyAdapter extends ArrayAdapter<Technology> {
        spf = new SimpleDateFormat("MMM dd,yyy", Locale.ENGLISH);
        date = spf.format(newDate);
 
-       holder.date.setText(date);
+       dateView.setText(date);
 
-       return convertView;
+       return listItemView;
    }
 }
 

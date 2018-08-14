@@ -2,4 +2,17 @@
     <string name="app_name">NewsAppProject</string>
     <string name="No_news_found">No news found.</string>
     <string name="No_internet_found">No internet found.</string>
+
+    <string name="settings_menu_item">Settings</string>
+
+    <string name="settings_title">Technology Settings</string>
+
+    <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
+    <string name="settings_newest_article_label">Newest Article</string>
+    <string name="settings_newest_article_key" translatable="false">new_article</string>
+    <string name="settings_newest_article_default" translatable="false">6</string>
+
+    // Strings for oldest  preference
+    <string name="settings_oldest_article_label">Oldest Article</string>
+    <string name="settings_oldest_article_key" translatable="false">oldest article</string>
 </resources>

@@ -1,8 +1,8 @@
-package com.example.android.newsappproject;
+package com.example.android.newsproject;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
+
 
 import java.util.List;
 

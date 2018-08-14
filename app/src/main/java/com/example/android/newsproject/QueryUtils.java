@@ -1,4 +1,4 @@
-package com.example.android.newsappproject;
+package com.example.android.newsproject;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,20 +53,22 @@ public final class QueryUtils {
         URL url = null;
         try {
             url = new URL(stringUrl);
-        } catch (MalformedURLException exception) {
-            Log.e(LOG_TAG, "problem bulding the URL", exception);
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "problem building the URL", e);
             return null;
+
         }
+
         return url;
     }
 
     // makes an HTTP request and returns the response
     private static String makeHttpRequest(URL url) throws IOException {
-        String jasonRespons = "";
+        String jasonResponse = "";
 
         // return the response early
         if (url == null) {
-            return jasonRespons;
+            return jasonResponse;
         }
 
 
@@ -77,15 +78,15 @@ public final class QueryUtils {
         //opens a connection to the data.
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setReadTimeout(10000);
+            urlConnection.setReadTimeout(100000);
             urlConnection.setConnectTimeout(15000);
+            urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             // if successful , input stream is called and the response is parsed.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
-                jasonRespons = readFromStream(inputStream);
+                jasonResponse = readFromStream(inputStream);
             } else {
                 Log.e(LOG_TAG, "Error response code:" + urlConnection.getResponseCode());
 
@@ -94,16 +95,21 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "problem retrieving the article JSON results.", e);
         } finally {
 
-            {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            }
-            return jasonResponse;
+            if (urlConnection != null) {
+                urlConnection.disconnect();
         }
+        if (inputStream != null) {
+            inputStream.close();
+
+
+             }
+        }
+            return jasonResponse;
+
+    }
+
+
+
         //convert the link to a string containing the JASON response.
 
         private static String readFromStream (InputStream inputStream) throws IOException {
@@ -127,7 +133,7 @@ public final class QueryUtils {
             // returns early is the json string is empty.
             if (TextUtils.isEmpty(technologyJSON)) {
                 return null;
-                s
+
             }
 
             //creat an empty Arraylist that will contain the data
@@ -150,24 +156,25 @@ public final class QueryUtils {
 
                     String title = currentTechnology.getString("webTitle");
                     String section = currentTechnology.getString("sectionName");
-                    String date = currentTechnology.getString("webDate");
+                    String date = currentTechnology.getString("webPublicationDate");
                     String url = currentTechnology.getString("webUrl");
 
                     //Extract the JSONArray associated with key tags
-                    JSONArray tags = currentTechnology.getJSONArray(tags);
+                    JSONArray tags = currentTechnology.getJSONArray("tags");
                     String contributer = "";
 
                     if (tags.length() == 0) {
-                        contributer = null;
+                        contributer = "No Author";
 
                     } else {
                         for (int x = 0; x < tags.length(); x++) {
                             // get a contributor at a position
-                            JSONObject currentContributer = tags.getJSONObject(x);
+                            JSONObject currentContributor = tags.getJSONObject(x);
 
                             // Extract the value of the key
-                            contributer = currentContributer.getString("webTitle");
+                            contributer = currentContributor.getString("webTitle");
                         }
+
 
                     }
                     //Create a new object

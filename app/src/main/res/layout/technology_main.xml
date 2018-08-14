@@ -23,7 +23,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
     <ProgressBar
-        android:id="@+id/progress_rate"
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>

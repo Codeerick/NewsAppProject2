@@ -1,15 +1,19 @@
-package com.example.android.newsappproject;
+package com.example.android.newsproject;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,12 +26,12 @@ import android.os.Handler;
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Technology>> {
      // Log messages tag
      private  static final String Log_Tag = MainActivity.class.getName();
-
      // news data
-     private static final String USGS_REQUEST_URL  =
-             "https://content.guardianapis.com/global-development/2018/jul/31/mps-accuse-aid-groups-of-abject-failure-in-tackling-sexual-abuse&api-key=";
+     private static final String USGS_REQUEST_URL
+             ="https://content.guardianapis.com/search?section=technology&show-tags=contributor&page-size=15&q=technology&api-key=54f3f3ab-48c6-4ac3-886a-e4bb5f26254b";
     // the static value
      private static final int TECHNOLOGY_LOADER_ID = 1;
+
     // list of articles
      private TechnologyAdapter mTechnologyAdapter;
    // empty object
@@ -108,7 +112,30 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     }
     @Override
     public android.content.Loader<List<Technology>> onCreateLoader(int i, Bundle bundle){
-        return new TechnologyLoader(this,USGS_REQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String aArticle= sharedPrefs.getString(
+                getString(R.string.settings_newest_article_key),
+                getString(R.string.settings_oldest_article_key));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the `format=geojson`
+        uriBuilder.appendQueryParameter("q", "tech");
+        uriBuilder.appendQueryParameter("from-date", "fromDate");
+        uriBuilder.appendQueryParameter("article", aArticle);
+        uriBuilder.appendQueryParameter("order-by", "orderBy");
+        uriBuilder.appendQueryParameter("show-tags", "contributer");
+
+
+        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+        return new TechnologyLoader(this, uriBuilder.toString());
     }
 
 
@@ -133,7 +160,23 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     public void onLoaderReset(android.content.Loader<List<Technology>> loader){
         Log.i(Log_Tag,"onLoaderReset() called");
         mTechnologyAdapter.clear();
-
+    }
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_setting) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
