@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                 getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default));
 
-        // parse breaks apart the URI string that's passed into its parameter
+        // parse breaks apart the URU
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
@@ -128,9 +128,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Append query parameter and its value. For example, the `format=geojson`
         uriBuilder.appendQueryParameter("q", "tech");
-        uriBuilder.appendQueryParameter("api-key", "54f3f3ab-48c6-4ac3-886a-e4bb5f26254b");
-        uriBuilder.appendQueryParameter("order-by", "orderBy");
-        uriBuilder.appendQueryParameter("show-tags", "contributer");
+        uriBuilder.appendQueryParameter("orderby", "orderBy");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
 
 
         // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
