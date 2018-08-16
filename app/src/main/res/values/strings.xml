@@ -7,12 +7,18 @@
 
     <string name="settings_title">Technology Settings</string>
 
-    <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
-    <string name="settings_newest_article_label">Newest Article</string>
-    <string name="settings_newest_article_key" translatable="false">new_article</string>
-    <string name="settings_newest_article_default" translatable="false">6</string>
+    <!-- Strings Order by Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_oldest_article_value</string>
 
-    // Strings for oldest  preference
-    <string name="settings_oldest_article_label">Oldest Article</string>
-    <string name="settings_oldest_article_key" translatable="false">oldest article</string>
+     // newest option
+    <string name="settings_order_by_oldest_article_label">Oldest Article</string>
+    <string name="settings_order_by_oldest_article_value">oldest</string>
+
+    // oldest option
+    <string name="settings_order_by_newest_article_label">Newest Article Label</string>
+    <string name="settings_order_by_newest_article_value" translatable="false">newest</string>
+
+
 </resources>

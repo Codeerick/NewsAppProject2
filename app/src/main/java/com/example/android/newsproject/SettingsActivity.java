@@ -23,8 +23,9 @@ public static class TechnologyPreferenceFragment extends PreferenceFragment impl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings_main);
-        Preference newArticle = findPreference(getString(R.string.settings_newest_article_key));
-        bindPreferenceSummaryToValue(newArticle);
+
+        Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+        bindPreferenceSummaryToValue(orderBy);
     }
 
     @Override

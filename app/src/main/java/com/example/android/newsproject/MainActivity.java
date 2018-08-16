@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      private  static final String Log_Tag = MainActivity.class.getName();
      // news data
      private static final String USGS_REQUEST_URL
-             ="https://content.guardianapis.com/search?section=technology&show-tags=contributor&page-size=15&q=technology&api-key=54f3f3ab-48c6-4ac3-886a-e4bb5f26254b";
+             ="https://content.guardianapis.com/technology?show-tags=contributor&page-size=15&api-key=54f3f3ab-48c6-4ac3-886a-e4bb5f26254b";
     // the static value
      private static final int TECHNOLOGY_LOADER_ID = 1;
 
@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
-        String aArticle= sharedPrefs.getString(
-                getString(R.string.settings_newest_article_key),
-                getString(R.string.settings_oldest_article_key));
+        String orderBy= sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
 
         // parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
@@ -128,8 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Append query parameter and its value. For example, the `format=geojson`
         uriBuilder.appendQueryParameter("q", "tech");
-        uriBuilder.appendQueryParameter("from-date", "fromDate");
-        uriBuilder.appendQueryParameter("article", aArticle);
+        uriBuilder.appendQueryParameter("api-key", "54f3f3ab-48c6-4ac3-886a-e4bb5f26254b");
         uriBuilder.appendQueryParameter("order-by", "orderBy");
         uriBuilder.appendQueryParameter("show-tags", "contributer");
 
