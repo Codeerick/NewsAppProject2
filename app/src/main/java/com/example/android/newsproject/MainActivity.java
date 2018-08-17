@@ -115,6 +115,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        String fromDate = sharedPrefs.getString(
+                getString(R.string.settings_begin_date_key),
+                getString(R.string.settings_begin_date_default));
+
+
         // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
         String orderBy= sharedPrefs.getString(
                 getString(R.string.settings_order_by_key),
@@ -128,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Append query parameter and its value. For example, the `format=geojson`
         uriBuilder.appendQueryParameter("q", "tech");
+        uriBuilder.appendQueryParameter("from-date", fromDate);
         uriBuilder.appendQueryParameter("orderby", "orderBy");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
 

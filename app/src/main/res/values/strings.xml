@@ -4,21 +4,26 @@
     <string name="No_internet_found">No internet found.</string>
 
     <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">NewsApp2 Technology Settings</string>
 
-    <string name="settings_title">Technology Settings</string>
+     //String article begin date
+    <string name="settings_begin_date_label">Technology Article begin date</string>
+<string name="settings_begin_date_key" translatable="false">from date </string>
+<string name="settings_begin_date_default" translatable="false">2017-02-02</string>
 
-    <!-- Strings Order by Preference [CHAR LIMIT=30] -->
+
+    // order by preference
     <string name="settings_order_by_label">Order By</string>
-    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_key" translatable="false">Oldest Article</string>
     <string name="settings_order_by_default" translatable="false">@string/settings_order_by_oldest_article_value</string>
 
      // newest option
-    <string name="settings_order_by_oldest_article_label">Oldest Article</string>
-    <string name="settings_order_by_oldest_article_value">oldest</string>
+    <string name="settings_order_by_newest_article_label">Newest Article </string>
+    <string name="settings_order_by_newest_article_value" translatable="false">newest</string>
 
     // oldest option
-    <string name="settings_order_by_newest_article_label">Newest Article Label</string>
-    <string name="settings_order_by_newest_article_value" translatable="false">newest</string>
+    <string name="settings_order_by_oldest_article_label">Oldest Article</string>
+    <string name="settings_order_by_oldest_article_value">oldest</string>
 
 
 </resources>

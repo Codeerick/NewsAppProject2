@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+   <EditTextPreference
+       android:defaultValue="@string/settings_begin_date_default"
+       android:inputType="textNoSuggestions"
+       android:key="@string/settings_begin_date_key"
+       android:selectAllOnFocus="true"
+       android:title="@string/settings_begin_date_label" />
+
    <ListPreference
    android:defaultValue="@string/settings_order_by_oldest_article_value"
        android:entries="@array/settings_order_by_labels"
