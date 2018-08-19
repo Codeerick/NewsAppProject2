@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // Append query parameter and its value. For example, the `format=geojson`
-        uriBuilder.appendQueryParameter("format", "tech");
+        uriBuilder.appendQueryParameter("format", "json");
         uriBuilder.appendQueryParameter("from-date", fromDate);
         uriBuilder.appendQueryParameter("show-tags", "contributor");
-        uriBuilder.appendQueryParameter("order-by", "orderBy");
+        uriBuilder.appendQueryParameter("orderBy", "orderBy");
 
 
         // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time

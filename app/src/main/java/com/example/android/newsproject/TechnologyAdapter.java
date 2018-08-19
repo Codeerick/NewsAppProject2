@@ -37,11 +37,12 @@ public class TechnologyAdapter extends ArrayAdapter<Technology> {
        }
        Technology currentTechnology = getItem(position);
 
-       title = (TextView) listItemView.findViewById(R.id.title);
+       title = (TextView) listItemView.findViewById(R.id.article_name);
        section = (TextView) listItemView.findViewById(R.id.name_of_section);
        author = (TextView) listItemView.findViewById(R.id.name_of_author);
        dateView = (TextView) listItemView.findViewById(R.id.date);
 
+       String titleText = currentTechnology.getTitle();
 
        String sectionText = currentTechnology.getSection();
 
@@ -49,7 +50,10 @@ public class TechnologyAdapter extends ArrayAdapter<Technology> {
        if (authorText == null) {
            author.setVisibility(View.GONE);
        } else {
+           title.setText(titleText);
+           section.setText(sectionText);
           author.setText(authorText);
+
        }
        String originalDate = currentTechnology.getDate();
        String date = null;
